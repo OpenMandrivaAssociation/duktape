@@ -1,4 +1,9 @@
+%ifarch aarch64
 %global optflags %{optflags} -Oz
+%else
+# (tpg) 2022-06-06 workaround for https://github.com/OpenMandrivaAssociation/distribution/issues/2746
+%global optflags %{optflags} -O2
+%endif
 
 %define major 207
 %define libname %mklibname %{name} %{major}
