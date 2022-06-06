@@ -1,0 +1,34 @@
+diff -Naur duktape-2.7.0/Makefile.sharedlibrary duktape-2.7.0.tpg/Makefile.sharedlibrary
+--- duktape-2.7.0/Makefile.sharedlibrary	2022-02-18 21:22:19.000000000 +0000
++++ duktape-2.7.0.tpg/Makefile.sharedlibrary	2022-06-06 18:04:02.407594012 +0000
+@@ -61,6 +61,7 @@
+ 
+ CC ?= gcc
+ CC := $(CC)
++LIBS += -lm
+ 
+ .PHONY: all
+ all: libduktape.$(SO_REALNAME_SUFFIX) libduktaped.$(SO_REALNAME_SUFFIX) duktape.pc
+@@ -70,12 +71,12 @@
+ # to $INSTALL_PREFIX/include on installation.
+ 
+ libduktape.$(SO_REALNAME_SUFFIX):
+-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
+-		-o $@ $(DUKTAPE_SRCDIR)/duktape.c
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -Wall -Wextra -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
++		-o $@ $(DUKTAPE_SRCDIR)/duktape.c $(LIBS)
+ 
+ libduktaped.$(SO_REALNAME_SUFFIX):
+-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -g -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktaped.$(SO_SONAME_SUFFIX) \
+-		-o $@ $(DUKTAPE_SRCDIR)/duktape.c
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -g -Wall -Wextra -Wl,$(LD_SONAME_ARG),libduktaped.$(SO_SONAME_SUFFIX) \
++		-o $@ $(DUKTAPE_SRCDIR)/duktape.c $(LIBS)
+ 
+ duktape.pc:
+ 	sed -e "s|@PREFIX@|$(INSTALL_PREFIX)|" \
+@@ -101,4 +102,4 @@
+ 
+ CCOPTS = -I./examples/cmdline
+ duk:
+-	$(CC) $(CCOPTS) -I$(INSTALL_PREFIX)/include -L$(INSTALL_PREFIX)$(LIBDIR) -Wall -Wextra -Os -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(CCOPTS) -I$(INSTALL_PREFIX)/include -L$(INSTALL_PREFIX)$(LIBDIR) -Wall -Wextra -o $@ ./examples/cmdline/duk_cmdline.c -lduktape -lm
