@@ -12,7 +12,7 @@
 Summary:	Embeddable Javascript engine
 Name:		duktape
 Version:	2.7.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		System/Libraries
 Url:		http://duktape.org/
