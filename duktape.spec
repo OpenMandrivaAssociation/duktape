@@ -15,7 +15,7 @@ Version:	2.7.0
 Release:	2
 License:	MIT
 Group:		System/Libraries
-Url:		http://duktape.org/
+Url:		https://duktape.org/
 Source0:	http://duktape.org/%{name}-%{version}.tar.xz
 Patch0:		duktape-2.7.0-build-flags.patch
 
